@@ -1,0 +1,98 @@
+body {
+    box-sizing: border-box;
+}
+
+/* slider */
+
+.index-card-price {
+    margin-top: 7px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 123, 35);
+}
+
+.index-card-category-cont  {
+    display: flex;
+}
+
+.index-card-category {
+    background-color: rgb(207, 206, 206);
+    width: 100px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: black;
+    font-size: 12px;
+}
+
+.card-title {
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #333
+}
+
+.card :hover {
+    color: orange;
+}
+
+.slider-label {
+    margin-left: 6%;
+    padding-top: 1%;
+}
+
+/* ads */
+
+.advert-1 {
+   width: 89%;
+   height: 200px;
+   display: flex;
+   margin: auto;
+   background: rgb(247, 230, 230);
+}
+
+.advert-2 {
+    width: 89%;
+    height: 200px;
+    display: flex;
+    margin: auto;
+    background: rgb(247, 230, 230);
+    margin-top: 2%;
+    margin-bottom: 2%;
+ }
+ 
+
+
+
+.slider-container {
+    /* background-color: red; */
+    width: 90%;
+    display: flex;
+    margin: auto;
+    margin-right: 4%;
+}
+.owl-carousel .item {
+    height: 25rem;
+   
+}
+
+
+/* navbar */
+.navbar {
+    height: 5rem;
+}
+
+.navbar-logo {
+    position: absolute;
+    left: 5%;
+    font-weight: bolder;
+    font-size: 32px;
+    color: orange;
+}
+
+/* post show */
+
+.carousel {
+    width: 40%;
+}
