@@ -11,14 +11,24 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/slider.js') }}" defer></script>
+
     {{-- bootstrap --}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    
     {{-- slider --}}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
@@ -44,14 +54,14 @@
           })
         })
         </script>  
-        {{-- endslider --}}
+    {{-- endslider --}}
 </head>
 <body>
     <div id="app">
         <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-logo" href="{{ url('/') }}">
-                    <strong>Myauto.ge</strong>
+                <a class="navbar-logo" style="text-decoration: none;" href="{{ url('/') }}">
+                    <strong class="nav-logo">Myauto.ge</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -76,15 +86,22 @@
                                 </li>
                             @endif
                         @else
-                            <div>
-                                <a href="#">
+                            <div class="navbar-create">
+                                <a style="text-decoration: none" class="navbarcreate"  href="{{ route('post.create') }}">+</a>
+                            </div>
+                            <div class="navbar-mypage ml-5">
+                                <a style="text-decoration: none" class="navbar-my-link" href="{{ route('post.index', auth()->user()->id) }}">My page</a>
+                            </div>
+                            <div class="navbar-user-email-cont">
+                                <a href="#" class="navbar-user-email" style="text-decoration: none;">
                                     {{ Auth::user()->email[0] }}
                                 </a>
                             </div>
-                            <li class="nav-item dropdown">
+                            <li class="navbar-drop nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <p class="dropdown-item">{{ auth()->user()->email }}</p>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -105,12 +122,5 @@
             @yield('content')
         </main>
     </div>
-    <nav class="navbar navbar-default navbar-fixed-bottom bg-dark mt-5">
-        <div class="container d-flex justify-content-center">
-            <div class="navbar-header">
-                <span class="navbar-brand" style="color: #fff"><strong>MyAuto.ge  | Company &copy; 2020</strong></span>
-            </div>
-        </div>
-    </nav>
 </body>
 </html>
