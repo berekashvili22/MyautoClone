@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container border">
+<div class="create-post-cont container border" style="margin-top: 60px;">
    <form action="{{ route('post.store') }}" enctype="multipart/form-data" method="post">
     @csrf
+    <div class="create-post-title">
+        <h1>Create new post</h1>
+    </div>
     <hr>
     <div class="row">
         <div class="col-3">
@@ -48,7 +51,7 @@
             <div class="row pl-2 mt-3">
                 <label class="pl-2" for="inputState"><strong>Manufacturer:</strong></label>
                 <select id="inputState" class="form-control" name="manufacturer">
-                    <option selected value=""></option>
+                    <option selected></option>
                     <option value="bmw">bmw</option>
                     <option value="mercedes-benz">mercedes-benz</option>
                     <option value="audi">audi</option>
@@ -60,7 +63,6 @@
                     <option value="suzuki">suzuki</option>
                     <option value="dodge">dodge</option>
                     <option value="toyota">toyota</option>
-                    <option value="unknown">other..</option>
                 </select>
                 @error('manufacturer')
                      <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
