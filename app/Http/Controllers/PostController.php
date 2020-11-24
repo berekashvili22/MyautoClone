@@ -7,15 +7,12 @@ use App\Category;
 use App\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $posts = Post::all();
@@ -23,8 +20,6 @@ class PostController extends Controller
         $vipPlus_posts = Post::where('post_type', 'V+')->get();
         $vip_posts = Post::where('post_type', 'V')->get();
         $recently_added = Post::orderBy('created_at', 'desc')->take(5)->get();
-        // dd($recently_added);
-        
 
         return view('posts.index', compact('vipPlus_posts', 'vip_posts', 'recently_added'));
     }
@@ -36,6 +31,8 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Post::class);
+
         return view('posts.create');
     }
 
@@ -55,7 +52,6 @@ class PostController extends Controller
             'model' => 'required',
             'prod_date' => 'required',
             'mileage' => 'required',
-            // 'vin_code' => 'required',
             'gearbox_type' => 'required',
             'engine_volume' => 'required',
             'color' => 'required',
@@ -63,8 +59,6 @@ class PostController extends Controller
             'cylinders' => 'required',
             'fuel_type' => 'required',
             'drive_wheels' => 'required',
-            // 'interior_material' => 'required',
-            // 'airbags' => 'required',
             'wheel' => 'required',
             'hydraulics' => '',
             'rims' => '',
@@ -82,12 +76,12 @@ class PostController extends Controller
             'customs' => 'required',
             'price' => 'required',
             'post_type' => 'required',
-            'image1' => 'required',
-            'image2' => '',
-            'image3' => '',
-            'image4' => '',
-            'image5' => '',
-            'image6' => '',
+            'image1' => 'required|image',
+            'image2' => 'image',
+            'image3' => 'image',
+            'image4' => 'image',
+            'image5' => 'image',
+            'image6' => 'image',
         ]);
 
         $image1Path = request('image1')->store('uploads', 'public');
@@ -118,7 +112,6 @@ class PostController extends Controller
             'model' => $data['model'],
             'prod_date' => $data['prod_date'],
             'mileage' => $data['mileage'],
-            // 'vin_code' => $data['vin_code'],
             'gearbox_type' => $data['gearbox_type'],
             'engine_volume' => $data['engine_volume'],
             'turbo' => $data['turbo'],
@@ -127,8 +120,6 @@ class PostController extends Controller
             'fuel_type' => $data['fuel_type'],
             'drive_wheels' => $data['drive_wheels'],
             'color' => $data['color'],
-            // 'interior_material' => $data['interior_material'],
-            // 'airbags' => $data['airbags'],
             'wheel' => $data['wheel'] ? $data['wheel'] : False,
             'hydraulics' => $data['hydraulics'] ? $data['hydraulics'] : False,
             'rims' => $data['rims'] ? $data['rims'] : False,
@@ -168,7 +159,11 @@ class PostController extends Controller
      */
     public function show(\App\Post $post)
     {
-        return view('posts.show', compact('post'));
+        
+        $similar_posts = Post::where('model', $post->model)->take(5)->get();
+
+
+        return view('posts.show', compact('post', 'similar_posts'));
         
     }
 
@@ -178,9 +173,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $this->authorize('update', $post);
+
+        return view('posts.edit', compact('post'));
+
     }
 
     /**
@@ -190,9 +188,117 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(\App\Post $post)
     {
-        //
+        $this->authorize('update', $post);
+
+        $data = request()->validate([
+            'deal_type' => 'required',
+            'category_id' => 'required',
+            'doors' => 'required',
+            'manufacturer' => 'required',
+            'model' => 'required',
+            'prod_date' => 'required',
+            'mileage' => 'required',
+            'gearbox_type' => 'required',
+            'engine_volume' => 'required',
+            'color' => 'required',
+            'turbo' => '',
+            'cylinders' => 'required',
+            'fuel_type' => 'required',
+            'drive_wheels' => 'required',
+            'wheel' => 'required',
+            'hydraulics' => '',
+            'rims' => '',
+            'el_window' => '',
+            'climate_control' => '',
+            'seat_heater' => '',
+            'central_lock' => '',
+            'alarm' => '',
+            'bord_computer' => '',
+            'navigation' => '',
+            'description' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'location' => 'required',
+            'customs' => 'required',
+            'price' => 'required',
+            'post_type' => 'required',
+            'image1' => 'image',
+            'image2' => 'image',
+            'image3' => 'image',
+            'image4' => 'image',
+            'image5' => 'image',
+            'image6' => 'image',
+        ]);
+
+        if (request('image1')) {
+            $image1Path = request('image1')->store('profile', 'public'); 
+
+            $image1 = Image::make(public_path("storage/{$image1Path}"))->fit(1000, 1000);
+            $image1->save();
+
+            $image1Array = ['image1' => $image1Path];
+        }
+
+        if (request('image2')) {
+            $image2Path = request('image2')->store('profile', 'public'); 
+
+            $image2 = Image::make(public_path("storage/{$image2Path}"))->fit(1000, 1000);
+            $image2->save();
+
+            $image2Array = ['image2' => $image2Path];
+        }
+
+        if (request('image3')) {
+            $image3Path = request('image3')->store('profile', 'public'); 
+
+            $image3 = Image::make(public_path("storage/{$image3Path}"))->fit(1000, 1000);
+            $image3->save();
+
+            $image3Array = ['image3' => $image3Path];
+        }
+
+        if (request('image4')) {
+            $image4Path = request('image4')->store('profile', 'public'); 
+
+            $image4 = Image::make(public_path("storage/{$image4Path}"))->fit(1000, 1000);
+            $image4->save();
+
+            $image4Array = ['image4' => $image4Path];
+        }
+
+        if (request('image5')) {
+            $image5Path = request('image5')->store('profile', 'public'); 
+
+            $image5 = Image::make(public_path("storage/{$image5Path}"))->fit(1000, 1000);
+            $image5->save();
+
+            $image5Array = ['image5' => $image5Path];
+        }
+
+        if (request('image6')) {
+            $image6Path = request('image6')->store('profile', 'public'); 
+
+            $image6 = Image::make(public_path("storage/{$image6Path}"))->fit(1000, 1000);
+            $image6->save();
+
+            $image6Array = ['image6' => $image6Path];
+        }
+
+        $post->update(array_merge(
+            $data,
+            $image1Array ?? [] ,
+            $image2Array ?? [] ,
+            $image3Array ?? [] ,
+            $image4Array ?? [] ,
+            $image5Array ?? [] ,
+            $image6Array ?? [] ,
+        ));
+
+        return redirect("/post/{$post->id}");
+        
+
     }
 
     /**
@@ -201,8 +307,100 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(\App\Post $post)
+    {   
+        $this->authorize('update', $post);
+
+        $data=Post::where("id", $post->id)->delete();
+        return redirect()->route('index');
+    }
+
+    public function profile(\App\User $user)
     {
-        //
+        $posts = Post::where('user_id', $user->id)->get();
+
+        return view('posts.profile', compact('posts', 'user'));
+    }
+
+    public function filter(Request $request)
+    {
+        $posts = Post::all();
+        $input = $request->all();
+
+        if(isset($input['deal_type'])):
+            $posts = $posts->where('deal_type', '=', $input['deal_type']);
+        endif;
+
+        if(isset($input['manufacturer'])):
+            $posts = $posts->where('manufacturer', '=', $input['manufacturer']);
+        endif;
+
+        if(isset($input['model'])):
+            $posts = $posts->where('model', '=', $input['model']);
+        endif;
+
+        if(isset($input['category_id'])):
+            $posts = $posts->where('category_id', '=', $input['category_id']);
+        endif;
+
+        if(isset($input['fuel_type'])):
+            $posts = $posts->where('fuel_type', '=', $input['fuel_type']);
+        endif;
+
+        if(isset($input['gaerbox_type'])):
+            $posts = $posts->where('gaerbox_type', '=', $input['gaerbox_type']);
+        endif;
+
+        if(isset($input['post_type'])):
+            $posts = $posts->where('post_type', '=', $input['post_type']);
+        endif;
+
+        if(isset($input['customs'])):
+            $posts = $posts->where('customs', '=', $input['customs']);
+        endif;
+
+        if(isset($input['wheel'])):
+            $posts = $posts->where('wheel', '=', $input['wheel']);
+        endif;
+
+        if(isset($input['location'])):
+            $posts = $posts->where('location', '=', $input['location']);
+        endif;
+
+        if(isset($input['wheel'])):
+            $posts = $posts->where('wheel', '=', $input['wheel']);
+        endif;
+
+        if(isset($input['searchKeyWords'])):
+            $posts = $posts->where('description', 'like', $input['searchKeyWords']);
+        endif;
+
+        if(isset($input['price_from'])):
+            $posts = $posts->where('price', '>=', $input['price_from']);
+        endif;
+
+        if(isset($input['price_to'])):
+            $posts = $posts->where('price', '<=', $input['price_to']);
+        endif;
+
+        if(isset($input['year_from'])):
+            $posts = $posts->where('prod_date', '>=', $input['year_from']);
+        endif;
+
+        if(isset($input['year_to'])):
+            $posts = $posts->where('prod_date', '<=', $input['year_to']);
+        endif;
+        
+        if(isset($input['engine_from'])):
+            $posts = $posts->where('engine_volume', '>=', $input['engine_from']);
+        endif;
+
+        if(isset($input['engine_to'])):
+            $posts = $posts->where('engine_volume', '<=', $input['engine_to']);
+        endif;
+
+        $filtered_posts = $posts->all();
+
+        return view('posts.filter', compact('filtered_posts'));
     }
 }
