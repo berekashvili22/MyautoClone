@@ -1,7 +1,14 @@
 body {
     box-sizing: border-box;
+    height: 90vh;
 }
 
+/* page-footer */
+.page-footer  {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+}
 
 /* create post */
 
@@ -50,9 +57,9 @@ body {
     color: #333
 }
 
-.card :hover {
+/* .card :hover {
     color: orange;
-}
+} */
 
 .slider-label {
     margin-left: 6%;
@@ -95,21 +102,60 @@ body {
 }
 
 /* navbar */
+
+.login, .register {
+    background-color: orange;
+    margin-left: 10px;
+    border-radius: 10px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-link {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.login {
+    position: absolute;
+    right: 4%;
+    top: 19%;
+}
+
+.register {
+    position: absolute;
+    right: 11%;
+    top: 19%;
+}
+
+.register:hover {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.281);
+}
+
+.login:hover {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.281);
+}
+
+
+
+
 .navbar {
     height: 4.2rem;
 }
 
 .nav-logo {
     position: absolute;
-    top: 7%;
+    top: 11%;
     left: 7%;
     font-family: 'Fredoka One', cursive;
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 22px;
     color: #333;
     background-color: orange;
     border-radius: 30px;
-    padding: 8px 25px 8px 25px;
+    padding: 7px 25px 7px 25px;
 }
 
 .nav-logo:hover {
@@ -117,8 +163,8 @@ body {
 }
 
 .navbar-user-email-cont {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     background-color: orange;
     border-radius: 50%;
     display: flex;
@@ -126,13 +172,13 @@ body {
     justify-content: center;
     position: absolute;
     right: 7%;
-    top: 10%;
+    top: 15%;
 }
 
 .navbar-user-email {
     text-transform: capitalize;
     font-weight: bolder;
-    font-size: 32px;
+    font-size: 24px;
     color: #fff;
     
 }
@@ -156,12 +202,19 @@ body {
     border-radius: 50%;
     border: 1px solid #dadada;
     background-color: #333;
+    position: absolute;
+    right: 16%;
+    top: 20%;
 }
+
+
+
 
 .navbarcreate {
     font-family: 'Poppins', sans-serif;
     color: #fff;
     font-size: 32px;
+
 }
 
 .navbarcreate:hover {
@@ -174,6 +227,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    right: 12%;
+    top: 20%;
 }
 
 .navbar-my-link {
@@ -190,6 +246,22 @@ body {
 
 
 /* post show */
+
+
+.ed-del-p {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #f1f1f193;
+}
+
+
+.edit-post {
+    color: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .carousel {
     width: 100%;
@@ -283,11 +355,39 @@ body {
     color: #333;
 }
 
-.edit-post {
-    font-size: 24px;
-    color: #333;
-    background-color: #cecece;
-    padding: 10px;
+.show-post-loc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.show-post-loc-divs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+#post-show-ads {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.post-show-ads-link {
+    position: absolute;
+    top: 75%;
+    font-size: 14px;
+}
+
+.post-show-ads-link:hover {
+    border-bottom: 1px solid #c0c0c0;
 }
 
 
@@ -393,8 +493,8 @@ body {
 
 .search-pic-cont {
     background-color: #4f535d;
-    height: 53px;
-    margin-bottom: 2px;
+    height: 50px;
+    margin-bottom: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -434,6 +534,29 @@ body {
 
 /* filter */
 
+.p-type {
+    position: absolute;
+    background-color: rgba(255, 0, 0, 0.493);
+    width: 230px;
+    top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: wheat;
+}
+
+.result-found {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 1px;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+
+}
+
 .filter-main-cont {
     margin-top: 70px;
 }
@@ -445,7 +568,12 @@ body {
     /* background-color: red; */
     margin-bottom: 30px;
     background-color: #fff;
-    padding: 5px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.233);
+}
+
+.box-pic-cont {
+    padding: 10px;
+    position: relative;
 }
 
 .top-box {
@@ -453,18 +581,61 @@ body {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    border-bottom: 1px solid #c0c0c0;
 }
 
 .bottom-box {
     display: flex;
 }
 
+.box-main-title {
+    display: flex;
+    align-items: center;
+    width: 380px;
+    padding-left: 10px;
+    font-weight: bolder;
+    font-size: 16px;
+    border-right: 1px solid #c0c0c0;
+    text-transform: capitalize;
+    /* background-color: blue; */
+}
+
+.box-custom {
+    padding-top: 15px;
+    padding-right: 10px;
+    font-weight: bold;
+}
+
+.box-prod-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 570px;
+    /* background-color: red; */
+    padding-left: 10px;
+    border-right: 1px solid #c0c0c0;
+}
+
+.box-price{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100px;
+    color: orange;
+    font-weight: bold;
+    font-size: 17px;
+    /* background-color: blue; */
+}
+
 .box-post-detials {
     display: flex;
+    padding-left: 20px;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     justify-content: center;
-    width: 150px;
+    width: 130px;
+    font-weight: bold;
+    border-right: 1px solid #c0c0c0;
 }
 
 .box-description {
@@ -473,11 +644,13 @@ body {
     /* background-color: green; */
     width: 600px;
     justify-content: space-evenly;
+    border-right: 1px solid #c0c0c0;
 }
 
 .p-descrtipion {
     /* background-color: indianred; */
     height: 70%;
+    border-bottom: 1px solid #c0c0c0;
 }
 
 .box-location {
@@ -485,10 +658,91 @@ body {
     display: flex;
     justify-content: space-between;
     height: 20%;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 .box-id {
+    width: 100px;
     display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 10px;
+}
+
+
+
+/* flash messages */
+
+.flash-info {
+    display: flex;
+    background: rgba(241, 99, 4, 0.76);
+    height: 5vh;
     justify-content: center;
     align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    letter-spacing: 2px;
+    position: absolute;
+    z-index: 2;
+    top: 7%;
+}
+
+.flash-success {
+    display: flex;
+    background: rgba(70, 190, 1, 0.363);
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    z-index: 2;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 7%;
+}
+
+.flash-fail {
+    display: flex;
+    background: rgba(255, 0, 0, 0.521);
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    z-index: 2;
+    /* letter-spacing: 2px; */
+    /* transition: 0.3ms; */
+    position: absolute;
+    top: 7%;
+}
+
+/* removing flash messages */
+#hideMe {
+    -moz-animation: hideAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: hideAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: hideAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: hideAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes hideAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes hideAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
 }
