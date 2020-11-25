@@ -77,20 +77,26 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <li class="login nav-item">
+                                <a class="login-link nav-link"  style="text-decoration: none; color: #fff;" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <li class="register nav-item">
+                                    <a class="login-link nav-link"  style="text-decoration: none; color: #fff;" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             <div class="navbar-create">
                                 <a style="text-decoration: none" class="navbarcreate"  href="{{ route('post.create') }}">+</a>
                             </div>
-                            <div class="navbar-mypage ml-5">
-                                <a style="text-decoration: none" class="navbar-my-link" href="{{ route('post.index', auth()->user()->id) }}">My page</a>
+                            <div class="navbar-mypage">
+                                <a style="text-decoration: none" class="navbar-my-link" href="{{ route('post.index', auth()->user()->id) }}">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                                      </svg>
+                                </a>
                             </div>
                             <div class="navbar-user-email-cont">
                                 <a href="#" class="navbar-user-email" style="text-decoration: none;">
@@ -119,8 +125,21 @@
             </div>
         </nav>
         <main class="py-4">
+            @include('partials.alerts')
             @yield('content')
         </main>
     </div>
+    <!-- Footer -->
+<footer class="page-footer font-small blue bg-dark mt-5">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="https://myauto.ge/" style="text-decoration: none; color: #fff; font-weight:bold;">myauto.ge</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
 </body>
 </html>
+
