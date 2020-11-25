@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostController extends Controller
 {
@@ -146,7 +147,7 @@ class PostController extends Controller
 
         ]);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Your post was created successfully');
 
        
     }
@@ -296,8 +297,7 @@ class PostController extends Controller
             $image6Array ?? [] ,
         ));
 
-        return redirect("/post/{$post->id}");
-        
+        return redirect("/post/{$post->id}")->with('success', 'Your post was updated successfully');
 
     }
 
@@ -312,7 +312,7 @@ class PostController extends Controller
         $this->authorize('update', $post);
 
         $data=Post::where("id", $post->id)->delete();
-        return redirect()->route('index');
+        return redirect()->route('index')->with('danger', 'Your post was removed');
     }
 
     public function profile(\App\User $user)
@@ -347,8 +347,8 @@ class PostController extends Controller
             $posts = $posts->where('fuel_type', '=', $input['fuel_type']);
         endif;
 
-        if(isset($input['gaerbox_type'])):
-            $posts = $posts->where('gaerbox_type', '=', $input['gaerbox_type']);
+        if(isset($input['gearbox_type'])):
+            $posts = $posts->where('gearbox_type', '=', $input['gearbox_type']);
         endif;
 
         if(isset($input['post_type'])):
@@ -372,7 +372,12 @@ class PostController extends Controller
         endif;
 
         if(isset($input['searchKeyWords'])):
-            $posts = $posts->where('description', 'like', $input['searchKeyWords']);
+            $posts = Post::where('description', 'like', '%' . $input['searchKeyWords'] .'%' )
+                        ->orwhere('model', 'like', '%' . $input['searchKeyWords'] .'%' )
+                        ->orwhere('location', 'like', '%' . $input['searchKeyWords'] .'%' )
+                        ->orwhere('fuel_type', 'like', '%' . $input['searchKeyWords'] .'%' )
+                        ->orwhere('gearbox_type', 'like', '%' . $input['searchKeyWords'] .'%' )
+                        ->orwhere('manufactuter', 'like', '%' . $input['searchKeyWords'] .'%' )->get();
         endif;
 
         if(isset($input['price_from'])):
@@ -399,8 +404,12 @@ class PostController extends Controller
             $posts = $posts->where('engine_volume', '<=', $input['engine_to']);
         endif;
 
-        $filtered_posts = $posts->all();
+        $filtered_posts = $posts->sortBy('post_type')->reverse();
 
-        return view('posts.filter', compact('filtered_posts'));
+        $postCount = count($filtered_posts);
+    
+        return view('posts.filter', compact('filtered_posts', 'postCount'));
+
+        
     }
 }
