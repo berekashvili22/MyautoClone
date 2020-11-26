@@ -11,12 +11,12 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'PostController@index')->name('index');
 
 Route::get('/profile/{user}/my_posts', 'PostController@profile')->name('post.index');
-Route::get('/post/create', 'PostController@create')->name('post.create');
+Route::get('/post/create', 'PostController@create')->name('post.create')->middleware('verified');
 Route::post('/post', 'PostController@store')->name('post.store');
 Route::get('/post/{post}', 'PostController@show')->name('post.show');
 Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
