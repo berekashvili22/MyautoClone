@@ -534,6 +534,7 @@ body {
 
 /* filter */
 
+
 .p-type {
     position: absolute;
     background-color: rgba(255, 0, 0, 0.493);
@@ -745,4 +746,10 @@ body {
         height:0;
         visibility:hidden;
     }
+}
+
+
+
+#TITLE:hover {
+    color: orange;
 }

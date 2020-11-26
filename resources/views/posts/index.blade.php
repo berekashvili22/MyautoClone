@@ -181,7 +181,7 @@
                <img class="card-img-top" src="/storage/{{ $post->image1 }}" alt="N/A" style="width: 100%">
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
-                  <h5 class="card-title" style="">
+                  <h5 class="card-title" style="" id="TITLE">
                      <span style="text-transform: uppercase">{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
@@ -215,7 +215,7 @@
                <img class="card-img-top" src="/storage/{{ $post->image1 }}" alt="N/A" style="width: 100%">
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
-                  <h5 class="card-title" style="">
+                  <h5 class="card-title" style="" id="TITLE">
                      <span style="text-transform: uppercase">{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
@@ -249,8 +249,8 @@
                <img class="card-img-top" src="/storage/{{ $post->image1 }}" alt="N/A" style="width: 100%">
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
-                  <h5 class="card-title" style="">
-                     <span style="text-transform: uppercase">{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
+                  <h5 class="card-title" style="" id="TITLE">
+                     <span style="text-transform: uppercase" >{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
                         <div class="index-card-category">{{ $post->fuel_type }}</div>
