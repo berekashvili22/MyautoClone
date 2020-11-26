@@ -234,7 +234,7 @@ class PostController extends Controller
         ]);
 
         if (request('image1')) {
-            $image1Path = request('image1')->store('profile', 'public'); 
+            $image1Path = request('image1')->store('uploads', 'public'); 
 
             $image1 = Image::make(public_path("storage/{$image1Path}"))->fit(1000, 1000);
             $image1->save();
@@ -243,7 +243,7 @@ class PostController extends Controller
         }
 
         if (request('image2')) {
-            $image2Path = request('image2')->store('profile', 'public'); 
+            $image2Path = request('image2')->store('uploads', 'public'); 
 
             $image2 = Image::make(public_path("storage/{$image2Path}"))->fit(1000, 1000);
             $image2->save();
@@ -252,7 +252,7 @@ class PostController extends Controller
         }
 
         if (request('image3')) {
-            $image3Path = request('image3')->store('profile', 'public'); 
+            $image3Path = request('image3')->store('uploads', 'public'); 
 
             $image3 = Image::make(public_path("storage/{$image3Path}"))->fit(1000, 1000);
             $image3->save();
@@ -261,7 +261,7 @@ class PostController extends Controller
         }
 
         if (request('image4')) {
-            $image4Path = request('image4')->store('profile', 'public'); 
+            $image4Path = request('image4')->store('uploads', 'public'); 
 
             $image4 = Image::make(public_path("storage/{$image4Path}"))->fit(1000, 1000);
             $image4->save();
@@ -270,7 +270,7 @@ class PostController extends Controller
         }
 
         if (request('image5')) {
-            $image5Path = request('image5')->store('profile', 'public'); 
+            $image5Path = request('image5')->store('uploads', 'public'); 
 
             $image5 = Image::make(public_path("storage/{$image5Path}"))->fit(1000, 1000);
             $image5->save();
@@ -279,7 +279,7 @@ class PostController extends Controller
         }
 
         if (request('image6')) {
-            $image6Path = request('image6')->store('profile', 'public'); 
+            $image6Path = request('image6')->store('uploads', 'public'); 
 
             $image6 = Image::make(public_path("storage/{$image6Path}"))->fit(1000, 1000);
             $image6->save();
@@ -298,6 +298,7 @@ class PostController extends Controller
         ));
 
         return redirect("/post/{$post->id}")->with('success', 'Your post was updated successfully');
+
 
     }
 
