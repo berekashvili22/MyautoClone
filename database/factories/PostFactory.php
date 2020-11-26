@@ -5,9 +5,10 @@
 use App\Post;
 use Faker\Generator as Faker;
 
-$users = App\User::pluck('id')->toArray();
+
 
 $factory->define(Post::class, function (Faker $faker) {
+    $users = App\User::pluck('id')->toArray();
     return [
         'user_id' => $faker->randomElement($users),
         'category_id' => $faker->numberBetween(4, App\Category::count()),
@@ -16,7 +17,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'model' => $faker->randomElement(['650', '550', 'RS6', '525', '320']),
         'prod_date' => $faker->numberBetween(2000, 2020),
         'mileage' => $faker->numberBetween(0, 500000),
-        'model' => $faker->randomElement(['manual', 'typtronic', 'automatic', 'variator']),
+        'gearbox_type' => $faker->randomElement(['manual', 'typtronic', 'automatic', 'variator']),
         'engine_volume' => $faker->randomElement([1.0, 2.0, 5.5, 3.2]),
         'doors' => $faker->randomElement(['4/5', '2/3']),
         'turbo' => $faker->numberBetween(0, 1),
@@ -41,11 +42,11 @@ $factory->define(Post::class, function (Faker $faker) {
         'customs' => $faker->numberBetween(0, 1),
         'price' => $faker->numberBetween(1, 200000),
         'post_type' => $faker->randomElement(['V+', 'V', 'N']),
-        'image1' => $faker->image('public/storage/uploads',1000,1000, null, false),
-        'image2' => $faker->image('public/storage/uploads',1000,1000, null, false),
-        'image3' => $faker->image('public/storage/uploads',1000,1000, null, false),
-        'image4' => $faker->image('public/storage/uploads',1000,1000, null, false),
-        'image5' => $faker->image('public/storage/uploads',1000,1000, null, false),
-        'image6' => $faker->image('public/storage/uploads',1000,1000, null, false),
+        'image1' => $faker->image('public/storage/uploads/',1000,1000, null, false),
+        'image2' => $faker->image('public/storage/uploads/',1000,1000, null, false),
+        'image3' => $faker->image('public/storage/uploads/',1000,1000, null, false),
+        'image4' => $faker->image('public/storage/uploads/',1000,1000, null, false),
+        'image5' => $faker->image('public/storage/uploads/',1000,1000, null, false),
+        'image6' => $faker->image('public/storage/uploads/',1000,1000, null, false),
     ];
 });
