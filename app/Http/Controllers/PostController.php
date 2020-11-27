@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostController extends Controller
 {
