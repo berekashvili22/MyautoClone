@@ -1,0 +1,192 @@
+body {
+    background-color: #2e2e51;
+    display: flex;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* index */
+
+.side-bar {
+    width: 15%;
+    height: 100vh;
+    background-color: #202044;
+}
+
+.users-table-wrap {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 150px;
+}
+
+.side-bar-title-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    height: 60px;
+    border-bottom: 1px solid #2e2e51;
+}
+
+.side-bar-title-wrap h2 {
+    color: #f56361;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.side-bar-title-wrap h2:hover {
+    color: #f56361;
+    transition: 0.5ms;
+}
+
+.s-b-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    padding-left: 30px;
+    height: 150px;
+    border-left: 2px solid #011638;
+    margin-left: 70px;
+}
+
+.s-b-nav a {
+    text-decoration: none;
+    color: #d499b9;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.s-b-nav a:hover {
+    color: #fff;
+    transition: 0.5s;
+}
+
+.s-b-models-title-wrap {
+    color: #fff;
+    padding-left: 25px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.user-edit-form-container {
+    display: flex;
+    flex-direction: column;
+    /* width: 900px; */
+    margin: auto;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+.u-e-f-label {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+.users-t-title {
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* flash messages */
+
+.flash-info {
+    display: flex;
+    background: rgba(241, 99, 4, 0.76);
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    letter-spacing: 2px;
+    position: absolute;
+    z-index: 2;
+    top: 7%;
+}
+
+.flash-success {
+    display: flex;
+    background-color: green;
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    width: 85%;
+    z-index: 2;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+}
+
+.flash-fail {
+    display: flex;
+    background-color: red;
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    width: 85%;
+    z-index: 2;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+}    
+
+/* removing flash messages */
+#hideMe {
+    -moz-animation: hideAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: hideAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: hideAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: hideAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes hideAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes hideAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+
+
+.paginate-links-admin {
+    position: absolute;
+    bottom: 5%;
+    left: 26.6%;
+}
+
+.admin-create-user-link  {
+    position: absolute;
+    top: 15%;
+    right: 11.5%;
+    font-size: 24px;
+    cursor: pointer;
+}
