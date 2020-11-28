@@ -5,6 +5,7 @@
     <form action="{{ route('admin.store') }}" method="post">
     @csrf
     <div class="user-edit-form-container">
+        <h2 class="pb-3" style="color: #fff">Create new user</h2>
         <div class="row">
         <div class="col-5">
             <label class="u-e-f-label" for="user_email"><strong>email :</strong></label>
