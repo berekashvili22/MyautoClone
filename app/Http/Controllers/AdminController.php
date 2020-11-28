@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
+
     public function index()
     {
         $users = User::all();
@@ -40,8 +41,61 @@ class AdminController extends Controller
         $parent_categories = Category::where('parent_id', '=', 0)->paginate(12);
         $sub_categories = Category::where('parent_id', '>', 0)->paginate(12);
 
-
         return view('admin.admin_categories', compact('parent_categories', 'sub_categories'));
+    }
+
+    public function edit_category(\App\Category $category)
+    {
+        $parent_categories = Category::where('parent_id', '=', 0)->get();
+        return view('admin.admin_categories_edit', compact('category', 'parent_categories'));
+    }
+
+    public function update_category(\App\Category $category)
+    {
+        $data = request()->validate([
+            'id' => 'required',
+            'parent_id' => 'required|integer',
+            'title' => 'required',
+            'category_id' => 'required|integer',
+        ]);
+
+        $category->update($data);
+
+        return redirect('/admin/categories')->with('success', 'Category updated successfully');
+    }
+
+
+    public function create_category()
+    {
+        $parent_categories = Category::where('parent_id', '=', 0)->get();
+
+        return view('admin.admin_categories_create', compact('parent_categories'));
+    }
+
+
+    public function store_category()
+    {
+        $data = request()->validate([
+            'parent_id' => 'required|integer',
+            'title' => 'required',
+            'category_id' => 'required|integer|unique:categories',
+        ]);
+
+        // auth()->user()->posts()->create([])
+
+        Category::create([
+            'parent_id' => $data['parent_id'],
+            'title' => $data['title'],
+            'category_id' => $data['category_id'],
+        ]);
+
+        return redirect('/admin/categories')->with('success', 'Category was created successfully');
+    }
+
+    public function delete_category(\App\Category $category)
+    {
+        Category::where("id", $category->id)->delete();
+        return redirect()->route('admin.categories')->with('danger', 'Category was removed from database');
     }
 
 
