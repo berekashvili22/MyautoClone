@@ -56,4 +56,12 @@ Route::get('/admin/posts', 'AdminController@posts')->name('admin.posts')->middle
 
 Route::get('/admin/categories', 'AdminController@categories')->name('admin.categories')->middleware(['auth', 'isadmin']);
 
-Route::get('/admin/posts/{post}/delete', 'AdminController@delete_post')->name('admin.delete_post')->middleware(['auth', 'isadmin']);
+Route::get('/admin/categories/create', 'AdminController@create_category')->name('admin.create_category')->middleware(['auth', 'isadmin']);
+
+Route::post('/admin/category', 'AdminController@store_category')->name('admin.store_category')->middleware(['auth', 'isadmin']);
+
+Route::get('/admin/categories/{category}/edit', 'AdminController@edit_category')->name('admin.edit_category')->middleware(['auth', 'isadmin']);
+
+Route::get('/admin/categories/{category}/delete', 'AdminController@delete_category')->name('admin.delete_category')->middleware(['auth', 'isadmin']);
+
+Route::post('/admin/categories/{category}', 'AdminController@update_category')->name('admin.update_category')->middleware(['auth', 'isadmin']);
