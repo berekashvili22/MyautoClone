@@ -91,10 +91,15 @@ body {
 
 .users-t-title {
     color: #fff;
+    color: #f56361;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.users-t-title h1 {
+    font-weight: bold;
 }
 
 
@@ -189,4 +194,14 @@ body {
     right: 11.5%;
     font-size: 24px;
     cursor: pointer;
+}
+
+.categories-title {
+    color: #fff;
+    color: red;
+    color: blue;
+    color: #202044;
+    color: #993d55;
+    color: #f56361;
+    font-weight: bold;
 }
