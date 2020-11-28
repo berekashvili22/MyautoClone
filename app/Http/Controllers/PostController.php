@@ -31,9 +31,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        $categories = Category::where('parent_id', '!=', 0)->get();
         $this->authorize('create', Post::class);
 
-        return view('posts.create');
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -97,14 +98,14 @@ class PostController extends Controller
         $image4 = $image4Path ? Image::make(public_path("storage/{$image4Path}"))->fit(550, 450) : '';
         $image5 = $image5Path ? Image::make(public_path("storage/{$image5Path}"))->fit(550, 450) : '';
         $image6 = $image6Path ? Image::make(public_path("storage/{$image6Path}"))->fit(550, 450) : '';
- 
+
         $image1->save();
         $image2 ? $image2->save() : null;
         $image3 ? $image3->save() : null;
         $image4 ? $image4->save() : null;
         $image5 ? $image5->save() : null;
         $image6 ? $image6->save() : null;
-  
+
         auth()->user()->posts()->create([
             'deal_type' => $data['deal_type'],
             'category_id' => $data['category_id'],
@@ -147,8 +148,6 @@ class PostController extends Controller
         ]);
 
         return redirect('/')->with('success', 'Your post was created successfully');
-
-       
     }
 
     /**
@@ -159,12 +158,11 @@ class PostController extends Controller
      */
     public function show(\App\Post $post)
     {
-        
+
         $similar_posts = Post::where('model', $post->model)->take(5)->get();
 
 
         return view('posts.show', compact('post', 'similar_posts'));
-        
     }
 
     /**
@@ -178,7 +176,6 @@ class PostController extends Controller
         $this->authorize('update', $post);
 
         return view('posts.edit', compact('post'));
-
     }
 
     /**
@@ -233,7 +230,7 @@ class PostController extends Controller
         ]);
 
         if (request('image1')) {
-            $image1Path = request('image1')->store('uploads', 'public'); 
+            $image1Path = request('image1')->store('uploads', 'public');
 
             $image1 = Image::make(public_path("storage/{$image1Path}"))->fit(1000, 1000);
             $image1->save();
@@ -242,7 +239,7 @@ class PostController extends Controller
         }
 
         if (request('image2')) {
-            $image2Path = request('image2')->store('uploads', 'public'); 
+            $image2Path = request('image2')->store('uploads', 'public');
 
             $image2 = Image::make(public_path("storage/{$image2Path}"))->fit(1000, 1000);
             $image2->save();
@@ -251,7 +248,7 @@ class PostController extends Controller
         }
 
         if (request('image3')) {
-            $image3Path = request('image3')->store('uploads', 'public'); 
+            $image3Path = request('image3')->store('uploads', 'public');
 
             $image3 = Image::make(public_path("storage/{$image3Path}"))->fit(1000, 1000);
             $image3->save();
@@ -260,7 +257,7 @@ class PostController extends Controller
         }
 
         if (request('image4')) {
-            $image4Path = request('image4')->store('uploads', 'public'); 
+            $image4Path = request('image4')->store('uploads', 'public');
 
             $image4 = Image::make(public_path("storage/{$image4Path}"))->fit(1000, 1000);
             $image4->save();
@@ -269,7 +266,7 @@ class PostController extends Controller
         }
 
         if (request('image5')) {
-            $image5Path = request('image5')->store('uploads', 'public'); 
+            $image5Path = request('image5')->store('uploads', 'public');
 
             $image5 = Image::make(public_path("storage/{$image5Path}"))->fit(1000, 1000);
             $image5->save();
@@ -278,7 +275,7 @@ class PostController extends Controller
         }
 
         if (request('image6')) {
-            $image6Path = request('image6')->store('uploads', 'public'); 
+            $image6Path = request('image6')->store('uploads', 'public');
 
             $image6 = Image::make(public_path("storage/{$image6Path}"))->fit(1000, 1000);
             $image6->save();
@@ -288,17 +285,15 @@ class PostController extends Controller
 
         $post->update(array_merge(
             $data,
-            $image1Array ?? [] ,
-            $image2Array ?? [] ,
-            $image3Array ?? [] ,
-            $image4Array ?? [] ,
-            $image5Array ?? [] ,
-            $image6Array ?? [] ,
+            $image1Array ?? [],
+            $image2Array ?? [],
+            $image3Array ?? [],
+            $image4Array ?? [],
+            $image5Array ?? [],
+            $image6Array ?? [],
         ));
 
         return redirect("/post/{$post->id}")->with('success', 'Your post was updated successfully');
-
-
     }
 
     /**
@@ -308,10 +303,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(\App\Post $post)
-    {   
+    {
         $this->authorize('update', $post);
 
-        $data=Post::where("id", $post->id)->delete();
+        $data = Post::where("id", $post->id)->delete();
         return redirect()->route('index')->with('danger', 'Your post was removed');
     }
 
@@ -327,89 +322,87 @@ class PostController extends Controller
         $posts = Post::all();
         $input = $request->all();
 
-        if(isset($input['deal_type'])):
+        if (isset($input['deal_type'])) :
             $posts = $posts->where('deal_type', '=', $input['deal_type']);
         endif;
 
-        if(isset($input['manufacturer'])):
+        if (isset($input['manufacturer'])) :
             $posts = $posts->where('manufacturer', '=', $input['manufacturer']);
         endif;
 
-        if(isset($input['model'])):
+        if (isset($input['model'])) :
             $posts = $posts->where('model', '=', $input['model']);
         endif;
 
-        if(isset($input['category_id'])):
+        if (isset($input['category_id'])) :
             $posts = $posts->where('category_id', '=', $input['category_id']);
         endif;
 
-        if(isset($input['fuel_type'])):
+        if (isset($input['fuel_type'])) :
             $posts = $posts->where('fuel_type', '=', $input['fuel_type']);
         endif;
 
-        if(isset($input['gearbox_type'])):
+        if (isset($input['gearbox_type'])) :
             $posts = $posts->where('gearbox_type', '=', $input['gearbox_type']);
         endif;
 
-        if(isset($input['post_type'])):
+        if (isset($input['post_type'])) :
             $posts = $posts->where('post_type', '=', $input['post_type']);
         endif;
 
-        if(isset($input['customs'])):
+        if (isset($input['customs'])) :
             $posts = $posts->where('customs', '=', $input['customs']);
         endif;
 
-        if(isset($input['wheel'])):
+        if (isset($input['wheel'])) :
             $posts = $posts->where('wheel', '=', $input['wheel']);
         endif;
 
-        if(isset($input['location'])):
+        if (isset($input['location'])) :
             $posts = $posts->where('location', '=', $input['location']);
         endif;
 
-        if(isset($input['wheel'])):
+        if (isset($input['wheel'])) :
             $posts = $posts->where('wheel', '=', $input['wheel']);
         endif;
 
-        if(isset($input['searchKeyWords'])):
-            $posts = Post::where('description', 'like', '%' . $input['searchKeyWords'] .'%' )
-                        ->orwhere('model', 'like', '%' . $input['searchKeyWords'] .'%' )
-                        ->orwhere('location', 'like', '%' . $input['searchKeyWords'] .'%' )
-                        ->orwhere('fuel_type', 'like', '%' . $input['searchKeyWords'] .'%' )
-                        ->orwhere('gearbox_type', 'like', '%' . $input['searchKeyWords'] .'%' )
-                        ->orwhere('manufactuter', 'like', '%' . $input['searchKeyWords'] .'%' )->get();
+        if (isset($input['searchKeyWords'])) :
+            $posts = Post::where('description', 'like', '%' . $input['searchKeyWords'] . '%')
+                ->orwhere('model', 'like', '%' . $input['searchKeyWords'] . '%')
+                ->orwhere('location', 'like', '%' . $input['searchKeyWords'] . '%')
+                ->orwhere('fuel_type', 'like', '%' . $input['searchKeyWords'] . '%')
+                ->orwhere('gearbox_type', 'like', '%' . $input['searchKeyWords'] . '%')
+                ->orwhere('manufactuter', 'like', '%' . $input['searchKeyWords'] . '%')->get();
         endif;
 
-        if(isset($input['price_from'])):
+        if (isset($input['price_from'])) :
             $posts = $posts->where('price', '>=', $input['price_from']);
         endif;
 
-        if(isset($input['price_to'])):
+        if (isset($input['price_to'])) :
             $posts = $posts->where('price', '<=', $input['price_to']);
         endif;
 
-        if(isset($input['year_from'])):
+        if (isset($input['year_from'])) :
             $posts = $posts->where('prod_date', '>=', $input['year_from']);
         endif;
 
-        if(isset($input['year_to'])):
+        if (isset($input['year_to'])) :
             $posts = $posts->where('prod_date', '<=', $input['year_to']);
         endif;
-        
-        if(isset($input['engine_from'])):
+
+        if (isset($input['engine_from'])) :
             $posts = $posts->where('engine_volume', '>=', $input['engine_from']);
         endif;
 
-        if(isset($input['engine_to'])):
+        if (isset($input['engine_to'])) :
             $posts = $posts->where('engine_volume', '<=', $input['engine_to']);
         endif;
 
         $filtered_posts = $posts->sortBy('post_type')->reverse();
 
         $postCount = count($filtered_posts);
-    
-        return view('posts.filter', compact('filtered_posts', 'postCount'));
 
-        
+        return view('posts.filter', compact('filtered_posts', 'postCount'));
     }
 }
