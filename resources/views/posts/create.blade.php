@@ -34,15 +34,9 @@
                 <label class="pl-2" for="categoryId"><strong>Category</strong></label>
                 <select id="categoryId" name="category_id" class="form-control">
                     <option selected value=""></option>
-                    <option value="4">sedan</option>
-                    <option value="5">jeep</option>
-                    <option value="6">coupe</option>
-                    <option value="7">moto</option>
-                    <option value="8">tricycle</option>
-                    <option value="9">scooter</option>
-                    <option value="10">bus</option>
-                    <option value="11">truck</option>
-                    <option value="12">trailer</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->category_id }}">{{ $category->title }}</option>
+                    @endforeach
                 </select>
                 @error('category_id')
                     <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
