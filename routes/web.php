@@ -65,3 +65,18 @@ Route::get('/admin/categories/{category}/edit', 'AdminController@edit_category')
 Route::get('/admin/categories/{category}/delete', 'AdminController@delete_category')->name('admin.delete_category')->middleware(['auth', 'isadmin']);
 
 Route::post('/admin/categories/{category}', 'AdminController@update_category')->name('admin.update_category')->middleware(['auth', 'isadmin']);
+
+// categories
+
+Route::get('/admin/manufacturers', 'AdminController@manufacturers')->name('admin.manufacturers')->middleware(['auth', 'isadmin']);
+
+Route::get('/admin/manufacturers/create', 'AdminController@create_manufacturer')->name('admin.create_manufacturer')->middleware(['auth', 'isadmin']);
+
+Route::post('/admin/manufacturer', 'AdminController@store_manufacturer')->name('admin.store_manufacturer')->middleware(['auth', 'isadmin']);
+
+
+Route::get('/admin/manufacturers/{manufacturer}/edit', 'AdminController@edit_manufacturer')->name('admin.edit_manufacturer')->middleware(['auth', 'isadmin']);
+
+Route::get('/admin/manufacturers/{manufacturer}/delete', 'AdminController@delete_manufacturer')->name('admin.delete_manufacturer')->middleware(['auth', 'isadmin']);
+
+Route::post('/admin/manufacturers/{manufacturer}', 'AdminController@update_manufacturer')->name('admin.update_manufacturer')->middleware(['auth', 'isadmin']);
