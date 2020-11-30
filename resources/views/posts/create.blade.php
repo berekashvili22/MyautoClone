@@ -34,8 +34,11 @@
                 <label class="pl-2" for="categoryId"><strong>Category</strong></label>
                 <select id="categoryId" name="category_id" class="form-control">
                     <option selected value=""></option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->category_id }}">{{ $category->title }}</option>
+                    @foreach ($parent_categories as $parent_category)
+                        <option value="{{ $parent_category->id }}" style="font-weight: bolder; text-transform: uppercase;" disabled>{{ $parent_category->title }}</option>
+                        @foreach ($sub_categories->where('parent_id', '=' , $parent_category->id) as $sub_category)
+                            <option value="{{ $sub_category->id }}" style="text-transform: capitalize;">{{ $sub_category->title }}</option>
+                        @endforeach
                     @endforeach
                 </select>
                 @error('category_id')
@@ -44,28 +47,20 @@
             </div>
             <div class="row pl-2 mt-3">
                 <label class="pl-2" for="inputState"><strong>Manufacturer:</strong></label>
-                <select id="inputState" class="form-control" name="manufacturer">
-                    <option selected></option>
-                    <option value="bmw">bmw</option>
-                    <option value="mercedes-benz">mercedes-benz</option>
-                    <option value="audi">audi</option>
-                    <option value="opel">opel</option>
-                    <option value="ford">ford</option>
-                    <option value="honda">honda</option>
-                    <option value="volvo">volvo</option>
-                    <option value="fiat">fiat</option>
-                    <option value="suzuki">suzuki</option>
-                    <option value="dodge">dodge</option>
-                    <option value="toyota">toyota</option>
+                <select id="inputState" class="form-control" name="manufacturer_id">
+                    <option selected hidden></option>
+                    @foreach ($manufacturers as $manufacturer)
+                        <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+                    @endforeach
                 </select>
-                @error('manufacturer')
+                @error('manufacturer_id')
                      <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
                 @enderror
             </div>
             <div class="row pl-2 mt-3">     
                 <label for="inputModel"><strong>Model:</strong></label>
-                <input type="text" class="form-control" id="inputModel" name="model">
-                @error('model')
+                <input type="text" class="form-control" id="inputModel" name="model_id">
+                @error('model_id')
                     <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
                 @enderror
             </div>

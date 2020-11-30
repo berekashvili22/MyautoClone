@@ -101,7 +101,7 @@
         {{-- post description --}}
         <div class="show-p-details">
           <div class="details-row-1">
-            <strong>For <span class="pr-2">{{ $post->deal_type }}</span><span class="pr-1">{{ $post->manufacturer }}</span><span class="pr-1">{{ $post->model }}</span><span class="pr-1">{{ $post->prod_date }}</span> | <span>{{ $post->fuel_type }}</span> | {{ $post->location }}</strong>
+            <strong>For <span class="pr-2">{{ $post->deal_type }}</span><span class="pr-1" style="text-transform: uppercase">{{ $post->manufacturer->name }}</span><span class="pr-1">{{ $post->model_id }}</span><span class="pr-1">{{ $post->prod_date }}</span> | <span>{{ $post->fuel_type }}</span> | {{ $post->location }}</strong>
           </div>
           <div class="details-row-2">
             <p class="description pl-4 pt-3">{{ $post->description }}</p>
@@ -111,7 +111,7 @@
             <table class="table table-bordered">
               <tbody>
                 <tr>
-                  <td class="left-table">Manufacturer <strong style="text-transform: uppercase">{{ $post->manufacturer }} </strong></td>
+                  <td class="left-table">Manufacturer <strong style="text-transform: uppercase">{{ $post->manufacturer->name }} </strong></td>
                   <td class="right-table">
                     Rims
                     @if ($post->rims == 1)
@@ -280,7 +280,7 @@
                   <div class="card-body">
                      <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
                      <h5 class="card-title" style="">
-                        <span style="text-transform: uppercase">{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
+                        <span style="text-transform: uppercase">{{ $post->manufacturer->name }}</span> {{ $post->model }}</h5>
                         <div class="index-card-category-cont text-muted">
                            <div class="index-card-category">{{ $post->category->title }}</div>
                            <div class="index-card-category">{{ $post->fuel_type }}</div>

@@ -22,32 +22,23 @@
             <option value="sale">sale</option>
             <option value="rent">rent</option>
           </select>
-          <select class="form-control form-control mb-1" name="manufacturer">
+          <select class="form-control form-control mb-1" name="manufacturer_id">
             <option disabled selected hidden>Manufacturer</option>
-            <option value="bmw">bmw</option>
-            <option value="mercedes-benz">mercedes-benz</option>
-            <option value="audi">audi</option>
-            <option value="opel">opel</option>
-            <option value="ford">ford</option>
-            <option value="honda">honda</option>
-            <option value="volvo">volvo</option>
-            <option value="fiat">fiat</option>
-            <option value="suzuki">suzuki</option>
-            <option value="dodge">dodge</option>
-            <option value="toyota">toyota</option>
+               @foreach ($manufacturers as $manufacturer)
+                  <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+               @endforeach
           </select>
           <input type="text" class="form-control mb-1" id="inputModel" name="model" placeholder="Model">
           <select class="form-control form-control mb-1" name="category_id">
             <option disabled selected hidden>Category</option>
-            <option value="4">sedan</option>
-            <option value="5">jeep</option>
-            <option value="6">coupe</option>
-            <option value="7">moto</option>
-            <option value="8">tricycle</option>
-            <option value="9">scooter</option>
-            <option value="10">bus</option>
-            <option value="11">truck</option>
-            <option value="12">trailer</option>
+               @foreach ($parent_categories as $parent_category)
+                  <option value="{{ $parent_category->id }}" style="font-weight: bold; text-transform: uppercase;">{{ $parent_category->title }}</option>
+                  @foreach ($sub_categories->where('parent_id', '=' , $parent_category->id) as $sub_category)
+                        <option value="{{ $sub_category->id }}" style="text-transform: capitalize;">
+                           {{ $sub_category->title }}
+                        </option>
+                  @endforeach
+               @endforeach
           </select>
       </div>
       <div class="second col">
@@ -161,7 +152,13 @@
             <option value="foti">foti</option>
             <option value="borjomi">borjomi</option>
          </select>
-         <button class="search-button">SEARCH</button>
+         <button class="search-button">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search mr-2" style="font-weight: bolder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+            </svg>
+            SEARCH
+         </button>
    </div>
    <input type="text" class="serachbar form-control mb-1" id="inputPrice" name="searchKeyWords" placeholder="Enter any search keyword...">
 </div>
@@ -182,7 +179,7 @@
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
                   <h5 class="card-title" style="" id="TITLE">
-                     <span style="text-transform: uppercase">{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
+                     <span style="text-transform: uppercase">{{ $post->manufacturer->name }}</span> {{ $post->model_id }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
                         <div class="index-card-category">{{ $post->fuel_type }}</div>
@@ -216,7 +213,7 @@
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
                   <h5 class="card-title" style="" id="TITLE">
-                     <span style="text-transform: uppercase">{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
+                     <span style="text-transform: uppercase">{{ $post->manufacturer->name }}</span> {{ $post->model_id }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
                         <div class="index-card-category">{{ $post->fuel_type }}</div>
@@ -250,7 +247,7 @@
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
                   <h5 class="card-title" style="" id="TITLE">
-                     <span style="text-transform: uppercase" >{{ $post->manufacturer }}</span> {{ $post->model }}</h5>
+                     <span style="text-transform: uppercase" >{{ $post->manufacturer->name }}</span> {{ $post->model_id }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
                         <div class="index-card-category">{{ $post->fuel_type }}</div>
@@ -265,6 +262,7 @@
       @endforeach
    </div>
 </div>
-
 @endsection
 
+
+ 

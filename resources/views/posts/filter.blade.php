@@ -10,7 +10,7 @@
                 <div class="top-box">
                     <div class="box-main-title">
                         <strong>
-                            For {{ $post->deal_type }} <span style="text-transform: uppercase">{{ $post->manufacturer }}</span> {{ $post->model }}
+                            For {{ $post->deal_type }} <span style="text-transform: uppercase"></span> {{ $post->manufacturer->name }}
                         </strong>
                     </div>
                     <div class="box-prod-date">
