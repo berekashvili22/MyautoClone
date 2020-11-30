@@ -9,19 +9,25 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Manufacturers;
 use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::first();
 
         $vipPlus_posts = Post::where('post_type', 'V+')->get();
-        $vip_posts = Post::where('post_type', 'V')->get();
+        $vip_posts = Post::where('post_type', 'V')->take(10)->get();
         $recently_added = Post::orderBy('created_at', 'desc')->take(5)->get();
 
-        return view('posts.index', compact('vipPlus_posts', 'vip_posts', 'recently_added'));
+        $sub_categories = Category::where('parent_id', '!=', 0)->get();
+        $parent_categories = Category::where('parent_id', '=', 0)->get();
+
+        $manufacturers = Manufacturers::all();
+
+        return view('posts.index', compact('vipPlus_posts', 'vip_posts', 'recently_added', 'sub_categories', 'parent_categories', 'manufacturers'));
     }
 
     /**
@@ -31,10 +37,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('parent_id', '!=', 0)->get();
+        $sub_categories = Category::where('parent_id', '!=', 0)->get();
+        $parent_categories = Category::where('parent_id', '=', 0)->get();
+        $manufacturers = Manufacturers::all();
         $this->authorize('create', Post::class);
 
-        return view('posts.create', compact('categories'));
+        return view('posts.create', compact('sub_categories', 'parent_categories', 'manufacturers'));
     }
 
     /**
@@ -49,8 +57,8 @@ class PostController extends Controller
             'deal_type' => 'required',
             'category_id' => 'required',
             'doors' => 'required',
-            'manufacturer' => 'required',
-            'model' => 'required',
+            'manufacturer_id' => 'required',
+            'model_id' => 'required',
             'prod_date' => 'required',
             'mileage' => 'required',
             'gearbox_type' => 'required',
@@ -109,8 +117,8 @@ class PostController extends Controller
         auth()->user()->posts()->create([
             'deal_type' => $data['deal_type'],
             'category_id' => $data['category_id'],
-            'manufacturer' => $data['manufacturer'],
-            'model' => $data['model'],
+            'manufacturer_id' => $data['manufacturer_id'],
+            'model_id' => $data['model_id'],
             'prod_date' => $data['prod_date'],
             'mileage' => $data['mileage'],
             'gearbox_type' => $data['gearbox_type'],
@@ -159,7 +167,7 @@ class PostController extends Controller
     public function show(\App\Post $post)
     {
 
-        $similar_posts = Post::where('model', $post->model)->take(5)->get();
+        $similar_posts = Post::where('model', $post->model_id)->take(5)->get();
 
 
         return view('posts.show', compact('post', 'similar_posts'));
@@ -175,7 +183,12 @@ class PostController extends Controller
     {
         $this->authorize('update', $post);
 
-        return view('posts.edit', compact('post'));
+        $sub_categories = Category::where('parent_id', '!=', 0)->get();
+        $parent_categories = Category::where('parent_id', '=', 0)->get();
+
+        $manufacturers = Manufacturers::all();
+
+        return view('posts.edit', compact('post', 'sub_categories', 'parent_categories', 'manufacturers'));
     }
 
     /**
@@ -193,8 +206,8 @@ class PostController extends Controller
             'deal_type' => 'required',
             'category_id' => 'required',
             'doors' => 'required',
-            'manufacturer' => 'required',
-            'model' => 'required',
+            'manufacturer_id' => 'required',
+            'model_id' => 'required',
             'prod_date' => 'required',
             'mileage' => 'required',
             'gearbox_type' => 'required',
@@ -326,16 +339,37 @@ class PostController extends Controller
             $posts = $posts->where('deal_type', '=', $input['deal_type']);
         endif;
 
-        if (isset($input['manufacturer'])) :
-            $posts = $posts->where('manufacturer', '=', $input['manufacturer']);
+        if (isset($input['manufacturer_id'])) :
+            $posts = $posts->where('manufacturer_id', '=', $input['manufacturer_id']);
         endif;
 
-        if (isset($input['model'])) :
-            $posts = $posts->where('model', '=', $input['model']);
+        if (isset($input['model_id'])) :
+            $posts = $posts->where('model_id', '=', $input['model_id']);
         endif;
 
         if (isset($input['category_id'])) :
-            $posts = $posts->where('category_id', '=', $input['category_id']);
+
+            // all parent categories ids
+            $parent_category_ids = Category::where('parent_id', '=', 0)->get(['category_id'])->toArray();
+
+            $parent_category_ids = collect($parent_category_ids);
+
+            $parent_category_ids = $parent_category_ids->pluck('category_id')->toArray();
+
+            // if input category_id is in  parent category ids array
+            if (in_array($input['category_id'], $parent_category_ids)) :
+                // get all sub categories where parent_id = input category_id
+                $sub_category_ids = Category::where('parent_id', '=', $input['category_id'])->get(['category_id'])->toArray();
+
+                $sub_category_ids = collect($sub_category_ids);
+
+                $sub_category_ids = $sub_category_ids->pluck('category_id')->toArray();
+
+                $posts = Post::whereIn('category_id', $sub_category_ids)->get();
+            else :
+                $posts = $posts->where('category_id', '=', $input['category_id']);
+            endif;
+
         endif;
 
         if (isset($input['fuel_type'])) :
@@ -368,7 +402,7 @@ class PostController extends Controller
 
         if (isset($input['searchKeyWords'])) :
             $posts = Post::where('description', 'like', '%' . $input['searchKeyWords'] . '%')
-                ->orwhere('model', 'like', '%' . $input['searchKeyWords'] . '%')
+                ->orwhere('model_id', 'like', '%' . $input['searchKeyWords'] . '%')
                 ->orwhere('location', 'like', '%' . $input['searchKeyWords'] . '%')
                 ->orwhere('fuel_type', 'like', '%' . $input['searchKeyWords'] . '%')
                 ->orwhere('gearbox_type', 'like', '%' . $input['searchKeyWords'] . '%')
