@@ -40,7 +40,9 @@
     <div class="s-b-nav">
         <a href="{{ route('admin.users') }}">Users</a>
         <a href="{{ route('admin.posts') }}">Posts</a>
-        <a href="{{ route('admin.categories') }}">Categories</a>
+        <a href="{{ route('admin.categories') }}" class="admin-categories">Categories</a>
+        <a href="{{ route('admin.manufacturers') }}" class="admin-categories">Manufacturers</a>
+        <a href="{{ route('admin.models') }}" class="admin-categories">Models</a>
     </div>
 </div>
 @include('partials.alerts')
