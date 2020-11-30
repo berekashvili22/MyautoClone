@@ -17,19 +17,13 @@
                 @if ($category->parent_id != 0)
                 <option disabled selected hidden>parent category</option>
                     @foreach ($parent_categories as $parent_category)
-                        <option value="{{ $parent_category->category_id }}" @if ($category->parent_id == $parent_category->id) selected @endif>{{ $parent_category->title }}</option>
+                        <option value="{{ $parent_category->id }}" @if ($category->parent_id == $parent_category->id) selected @endif>{{ $parent_category->title }}</option>
                     @endforeach
                 @else
                     <option disabled selected value="0">parent category</option>
                 @endif
             </select>
             @error('parent_id')
-                <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
-            @enderror
-            <hr class="mb-5">
-            <label class="u-e-f-label" for="category_id"><strong>Category id:</strong></label>
-            <input type="text" class="form-control" id="category_id" name="category_id" value="{{ $category->category_id }}">
-            @error('category_id')
                 <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
             @enderror
             <hr class="mb-5">
