@@ -13,7 +13,6 @@
         <th scope="col">#</th>
         <th scope="col">id</th>
         <th scope="col">parent_id</th>
-        <th scope="col">category_id</th>
         <th scope="col">title</th>
         <th scope="col">edit</th>
       </tr>
@@ -24,7 +23,6 @@
       <th scope="row">{{ ++$loop->index }}</th>
       <td>{{ $category->id }}</td>
       <td>{{ ($category->parent_id == 0 ) ? '-' : $category->parent->id }}</td>
-      <td>{{ $category->category_id }}</td>
       <td>{{ $category->title }}</td>
       <td>
         <a href="{{ route('admin.edit_category', $category->id) }}" class="badge badge-info p-2 mr-1">edit</a>
@@ -46,7 +44,6 @@
         <th scope="col">#</th>
         <th scope="col">id</th>
         <th scope="col">parent_id</th>
-        <th scope="col">category_id</th>
         <th scope="col">title</th>
         <th scope="col">edit</th>
       </tr>
@@ -57,7 +54,6 @@
         <th scope="row">{{ ++$loop->index }}</th>
         <td>{{ $category->id }}</td>
         <td>{{ $category->parent_id }}</td>
-        <td>{{ $category->category_id }}</td>
         <td>{{ $category->title }}</td>
         <td>
           <a href="{{ route('admin.edit_category', $category->id) }}" class="badge badge-info p-2 mr-1">edit</a>
