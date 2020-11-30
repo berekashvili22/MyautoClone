@@ -48,7 +48,7 @@ body {
     justify-content: space-between;
     align-items: left;
     padding-left: 30px;
-    height: 150px;
+    height: 200px;
     border-left: 2px solid #011638;
     margin-left: 70px;
 }
@@ -204,4 +204,16 @@ body {
     color: #993d55;
     color: #f56361;
     font-weight: bold;
+}
+
+/* dashboard */
+.admin-categories {
+    border-left: 2px solid #011638 ;
+    margin-left: 5px;
+    padding-left: 10px;
+}
+
+.admin-categories:hover {
+    border-left: 2px solid red ;
+    transition: 0.5s;
 }
