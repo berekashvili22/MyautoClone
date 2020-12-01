@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Category;
 use App\User;
+use App\Brands;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +27,9 @@ class PostController extends Controller
         $parent_categories = Category::where('parent_id', '=', 0)->get();
 
         $manufacturers = Manufacturers::all();
+        $brands = Brands::all();
 
-        return view('posts.index', compact('vipPlus_posts', 'vip_posts', 'recently_added', 'sub_categories', 'parent_categories', 'manufacturers'));
+        return view('posts.index', compact('vipPlus_posts', 'vip_posts', 'recently_added', 'sub_categories', 'parent_categories', 'manufacturers', 'brands'));
     }
 
     /**
@@ -40,9 +42,11 @@ class PostController extends Controller
         $sub_categories = Category::where('parent_id', '!=', 0)->get();
         $parent_categories = Category::where('parent_id', '=', 0)->get();
         $manufacturers = Manufacturers::all();
+        $brands = Brands::all();
+
         $this->authorize('create', Post::class);
 
-        return view('posts.create', compact('sub_categories', 'parent_categories', 'manufacturers'));
+        return view('posts.create', compact('sub_categories', 'parent_categories', 'manufacturers', 'brands'));
     }
 
     /**
@@ -167,7 +171,7 @@ class PostController extends Controller
     public function show(\App\Post $post)
     {
 
-        $similar_posts = Post::where('model', $post->model_id)->take(5)->get();
+        $similar_posts = Post::where('model_id', $post->model_id)->orWhere('manufacturer_id', $post->manufacturer_id)->take(5)->get();
 
 
         return view('posts.show', compact('post', 'similar_posts'));
@@ -185,10 +189,10 @@ class PostController extends Controller
 
         $sub_categories = Category::where('parent_id', '!=', 0)->get();
         $parent_categories = Category::where('parent_id', '=', 0)->get();
-
+        $brands = Brands::all();
         $manufacturers = Manufacturers::all();
 
-        return view('posts.edit', compact('post', 'sub_categories', 'parent_categories', 'manufacturers'));
+        return view('posts.edit', compact('post', 'sub_categories', 'parent_categories', 'manufacturers', 'brands'));
     }
 
     /**
