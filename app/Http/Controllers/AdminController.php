@@ -6,7 +6,7 @@ use App\Post;
 use App\Category;
 use App\User;
 use App\Manufacturers;
-// use App\Carmodels;
+use App\Brands;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -227,11 +227,56 @@ class AdminController extends Controller
     }
 
 
-    // models
+    // brands
 
-    // public function models()
-    // {
-    //     $models = Carmodels::paginate(12);
-    //     return view('admin.admin_models', compact('models'));
-    // }
+    public function brands()
+    {
+        $brands = Brands::paginate(12);
+        return view('admin.admin_brands', compact('brands'));
+    }
+
+    public function create_brand()
+    {
+        $manufacturers = Manufacturers::all();
+        return view('admin.admin_brand_create', compact('manufacturers'));
+    }
+
+    public function store_brand()
+    {
+        $data = request()->validate([
+            'manufacturer_id' => 'required',
+            'name' => 'required|unique:brands',
+        ]);
+
+        Brands::create([
+            'manufacturer_id' => $data['manufacturer_id'],
+            'name' => $data['name'],
+        ]);
+
+        return redirect('/admin/brands')->with('success', 'Brand was added successfully');
+    }
+
+    public function edit_brand(\App\Brands $brand)
+    {
+        $manufacturers = Manufacturers::all();
+        return view('admin.admin_brand_edit', compact('brand', 'manufacturers'));
+    }
+
+    public function update_brand(\App\Brands $brand)
+    {
+        $data = request()->validate([
+            'manufacturer_id' => 'required',
+            'name' => 'required|unique:brands',
+        ]);
+
+        $brand->update($data);
+
+        return redirect('/admin/brands')->with('success', 'Brand updated successfully');
+    }
+
+    public function delete_brand(\App\Brands $brand)
+    {
+        Brands::where("id", $brand->id)->delete();
+        return redirect()->route('admin.brands')->with('danger', 'Brand was removed from database');
+    }
 }
