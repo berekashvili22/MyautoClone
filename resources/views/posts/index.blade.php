@@ -28,7 +28,12 @@
                   <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
                @endforeach
           </select>
-          <input type="text" class="form-control mb-1" id="inputModel" name="model" placeholder="Model">
+          <select id="inputState" class="form-control" name="model_id">
+            <option disabled selected hidden>Model</option>
+               @foreach ($brands as $brand)
+                  <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+               @endforeach
+          </select>
           <select class="form-control form-control mb-1" name="category_id">
             <option disabled selected hidden>Category</option>
                @foreach ($parent_categories as $parent_category)
@@ -179,7 +184,7 @@
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
                   <h5 class="card-title" style="" id="TITLE">
-                     <span style="text-transform: uppercase">{{ $post->manufacturer->name }}</span> {{ $post->model_id }}</h5>
+                     <span style="text-transform: uppercase">{{ $post->manufacturer->name }}</span> {{ $post->brand->name }}</h5>   
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
                         <div class="index-card-category">{{ $post->fuel_type }}</div>
@@ -213,7 +218,7 @@
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
                   <h5 class="card-title" style="" id="TITLE">
-                     <span style="text-transform: uppercase">{{ $post->manufacturer->name }}</span> {{ $post->model_id }}</h5>
+                     <span style="text-transform: uppercase">{{ $post->manufacturer->name }}</span> {{ $post->brand->name  }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
                         <div class="index-card-category">{{ $post->fuel_type }}</div>
@@ -247,7 +252,7 @@
                <div class="card-body">
                   <p class="text-muted" style="text-transform: capitalize;">{{ $post->prod_date }} {{ $post->location }}</p>
                   <h5 class="card-title" style="" id="TITLE">
-                     <span style="text-transform: uppercase" >{{ $post->manufacturer->name }}</span> {{ $post->model_id }}</h5>
+                     <span style="text-transform: uppercase" >{{ $post->manufacturer->name }}</span> {{ $post->brand->name  }}</h5>
                      <div class="index-card-category-cont text-muted">
                         <div class="index-card-category">{{ $post->category->title }}</div>
                         <div class="index-card-category">{{ $post->fuel_type }}</div>
