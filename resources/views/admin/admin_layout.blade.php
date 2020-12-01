@@ -42,7 +42,7 @@
         <a href="{{ route('admin.posts') }}">Posts</a>
         <a href="{{ route('admin.categories') }}" class="admin-categories">Categories</a>
         <a href="{{ route('admin.manufacturers') }}" class="admin-categories">Manufacturers</a>
-        <a href="{{ route('admin.models') }}" class="admin-categories">Models</a>
+        <a href="{{ route('admin.brands') }}" class="admin-categories">Brands</a>
     </div>
 </div>
 @include('partials.alerts')
