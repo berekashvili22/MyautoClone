@@ -13,8 +13,8 @@ class Manufacturers extends Model
         return $this->hasMany(Post::class);
     }
 
-    public function model()
+    public function brands()
     {
-        return $this->hasMany(Models::class);
+        return $this->hasMany(Brands::class, 'manufacturer_id');
     }
 }
