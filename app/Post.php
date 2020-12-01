@@ -22,4 +22,9 @@ class Post extends Model
     {
         return $this->belongsTo(Manufacturers::class, 'manufacturer_id');
     }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brands::class, 'model_id', 'id');
+    }
 }
