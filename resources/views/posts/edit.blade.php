@@ -62,7 +62,12 @@
             </div>
             <div class="row pl-2 mt-3">     
                 <label for="inputModel"><strong>Model:</strong></label>
-                <input type="text" class="form-control" id="inputModel" name="model_id" value="{{ $post->model_id }}">
+                <select id="inputState" class="form-control" name="model_id">
+                    <option value="{{ $post->brand->id }}" selected hidden>{{ $post->brand->name }}</option>
+                    @foreach ($brands as $brand)
+                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                    @endforeach
+                </select>
                 @error('model_id')
                     <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
                 @enderror
