@@ -101,7 +101,7 @@
         {{-- post description --}}
         <div class="show-p-details">
           <div class="details-row-1">
-            <strong>For <span class="pr-2">{{ $post->deal_type }}</span><span class="pr-1" style="text-transform: uppercase">{{ $post->manufacturer->name }}</span><span class="pr-1">{{ $post->model_id }}</span><span class="pr-1">{{ $post->prod_date }}</span> | <span>{{ $post->fuel_type }}</span> | {{ $post->location }}</strong>
+            <strong>For <span class="pr-2">{{ $post->deal_type }}</span><span class="pr-1" style="text-transform: uppercase">{{ $post->manufacturer->name }}</span><span class="pr-1">{{ $post->brand->name  }}</span><span class="pr-1">{{ $post->prod_date }}</span> | <span>{{ $post->fuel_type }}</span> | {{ $post->location }}</strong>
           </div>
           <div class="details-row-2">
             <p class="description pl-4 pt-3">{{ $post->description }}</p>
@@ -126,7 +126,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="left-table">Model <strong style="text-transform: uppercase">{{ $post->model }}</strong></td>
+                  <td class="left-table">Model <strong style="text-transform: uppercase">{{ $post->brand->name  }}</strong></td>
                   <td class="right-table">
                     El. windows
                     @if ($post->el_window == 1)
