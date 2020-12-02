@@ -34,8 +34,14 @@
     <div class="side-bar-title-wrap">
         <h2>MYAUTO - ADMIN</h2>
     </div>
+    <div style="position: absolute; bottom: 2% ; left: 1%;">
+        <h3><a href="{{ route('index') }}" style="text-decoration: none; color: rgb(248, 169, 169)">View Page</a></h3>
+    </div>
+    <div class="pl-4 pt-5">
+        <h4><a href="{{ route('admin.index') }}" style="text-decoration: none;">DASHBOARD</a></h4>
+    </div>
     <div class="s-b-models-title-wrap">
-        <h3>MODELS</h3>
+        <h4>MODELS</h4>
     </div>
     <div class="s-b-nav">
         <a href="{{ route('admin.users') }}">Users</a>
