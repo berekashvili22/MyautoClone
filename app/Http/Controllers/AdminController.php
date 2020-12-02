@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models;
+use Illuminate\Support\Carbon;
 
 class AdminController extends Controller
 {
@@ -23,7 +24,18 @@ class AdminController extends Controller
     {
         $users = User::all();
 
-        return view('admin.admin_index', compact('users'));
+        // all posts/users count created today
+        $t_posts = Post::whereDate('created_at', Carbon::today())->count();
+        $t_users = User::whereDate('created_at', Carbon::today())->count();
+
+        // all post/users count created this week
+        $date = Carbon::today()->subDays(7);
+
+        $w_posts = Post::where('created_at', '>=', $date)->count();
+        $w_users = User::where('created_at', '>=', $date)->count();
+
+
+        return view('admin.admin_index', compact('users', 't_posts', 't_users', 'w_posts', 'w_users'));
     }
 
     public function users()
