@@ -217,3 +217,47 @@ body {
     border-left: 2px solid red ;
     transition: 0.5s;
 }
+
+.box-container {
+    padding-top: 20px;
+    margin: auto;
+    margin-top: 50px;
+    width: 80%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dash-box {
+    background-color: #59cf5d5e;
+    height: 200px;
+    width: 450px;
+    border-radius: 2px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.486);
+}
+
+.inbox-title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.inbox-title h2 {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bolder;
+}
+
+.inbox-info {
+    padding-top: 10px;
+    padding-left: 20px;
+    /* background-color: orange; */
+    color: #fff;
+    font-weight: bold;
+    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+}
