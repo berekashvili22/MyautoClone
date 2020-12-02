@@ -80,3 +80,17 @@ Route::get('/admin/manufacturers/{manufacturer}/edit', 'AdminController@edit_man
 Route::get('/admin/manufacturers/{manufacturer}/delete', 'AdminController@delete_manufacturer')->name('admin.delete_manufacturer')->middleware(['auth', 'isadmin']);
 
 Route::post('/admin/manufacturers/{manufacturer}', 'AdminController@update_manufacturer')->name('admin.update_manufacturer')->middleware(['auth', 'isadmin']);
+
+// models
+
+Route::get('/admin/brands', 'AdminController@brands')->name('admin.brands')->middleware(['auth', 'isadmin']);
+
+Route::get('/admin/brands/create', 'AdminController@create_brand')->name('admin.create_brand')->middleware(['auth', 'isadmin']);
+
+Route::post('/admin/brand', 'AdminController@store_brand')->name('admin.store_brand')->middleware(['auth', 'isadmin']);
+
+Route::get('/admin/brands/{brand}/edit', 'AdminController@edit_brand')->name('admin.edit_brand')->middleware(['auth', 'isadmin']);
+
+Route::get('/admin/brands/{brand}/delete', 'AdminController@delete_brand')->name('admin.delete_brand')->middleware(['auth', 'isadmin']);
+
+Route::post('/admin/brands/{brand}', 'AdminController@update_brand')->name('admin.update_brand')->middleware(['auth', 'isadmin']);
