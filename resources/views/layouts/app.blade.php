@@ -86,6 +86,17 @@
                                 </li>
                             @endif
                         @else
+                            @if (auth()->user()->role == 1)
+                            <div>
+                                <a href="{{ route('admin.index') }}" style="text-decoration: none; font-weight: bold; font-size: 16px; color: black">
+                                    ADMIN
+                                </a>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" style="color: red" class="bi bi-kanban" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M13.5 1h-11a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-11-1a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-11z"/>
+                                    <path d="M6.5 3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm-4 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm8 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3z"/>
+                                </svg>
+                            </div>
+                                @endif
                             <div class="navbar-create">
                                 <a style="text-decoration: none" class="navbarcreate"  href="{{ route('post.create') }}">+</a>
                             </div>
@@ -130,7 +141,7 @@
         </main>
     </div>
     <!-- Footer -->
-<footer class="page-footer font-small blue bg-dark mt-5">
+{{-- <footer class="page-footer font-small blue bg-dark mt-5">
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
@@ -138,7 +149,7 @@
     </div>
     <!-- Copyright -->
   
-  </footer>
+  </footer> --}}
   <!-- Footer -->
 </body>
 </html>
