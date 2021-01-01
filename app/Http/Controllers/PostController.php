@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Manufacturers;
 use Intervention\Image\Facades\Image;
 
+
 class PostController extends Controller
 {
     public function index()
@@ -171,10 +172,12 @@ class PostController extends Controller
     public function show(\App\Post $post)
     {
 
+        $price_gel =  number_format($post->price) . " ₾"; 
+        $price_dollar = number_format(floor($post->price / 3.4)) . " $";
         $similar_posts = Post::where('model_id', $post->model_id)->orWhere('manufacturer_id', $post->manufacturer_id)->take(5)->get();
 
 
-        return view('posts.show', compact('post', 'similar_posts'));
+        return view('posts.show', compact('post', 'similar_posts', 'price_gel', 'price_dollar'));
     }
 
     /**
