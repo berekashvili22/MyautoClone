@@ -28,6 +28,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {{-- JS --}}
+    <script src="{{ asset('js/toggle.js') }}"></script>
     
     {{-- slider --}}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
