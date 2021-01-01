@@ -33,7 +33,7 @@
             <div class="row pl-2">
                 <label class="pl-2" for="categoryId"><strong>Category</strong></label>
                 <select id="categoryId" name="category_id" class="form-control">
-                    <option selected value=""></option>
+                    <option selected value="{{ old('category_id') }}">{{ old('category_id') }}</option>
                     @foreach ($parent_categories as $parent_category)
                         <option value="{{ $parent_category->id }}" style="font-weight: bolder; text-transform: uppercase;" disabled>{{ $parent_category->title }}</option>
                         @foreach ($sub_categories->where('parent_id', '=' , $parent_category->id) as $sub_category)
@@ -48,7 +48,11 @@
             <div class="row pl-2 mt-3">
                 <label class="pl-2" for="inputState"><strong>Manufacturer:</strong></label>
                 <select id="inputState" class="form-control" name="manufacturer_id">
-                    <option selected hidden></option>
+                    <option selected hidden value="{{ old('manufacturer_id') }}">
+                        @if {{ old('manufacturer_id') }} != none
+                        {{ $manufacturers->where('id', old('manufacturer_id'))->first()['name'] }}
+                        @endif
+                    </option>
                     @foreach ($manufacturers as $manufacturer)
                         <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
                     @endforeach
@@ -72,7 +76,7 @@
             <div class="row pl-2 mt-3">
                 <label class="pl-2" for="inputState"><strong>Prod. Year:</strong></label>
                 <select id="inputState" class="form-control" name="prod_date">
-                    <option selected value=""></option>
+                    <option selected value="{{ old('prod_date') }}">{{ old('prod_date') }}</option>
                     <option value="2020">2020</option>
                     <option value="2019">2019</option>
                     <option value="2018">2018</option>
@@ -91,7 +95,7 @@
             </div>
             <div class="row pl-2 mt-3">     
                 <label for="inputMileage"><strong>Mileage(km):</strong></label>
-                <input type="text" class="form-control" id="inputMileage" name="mileage">
+                <input type="text" class="form-control" id="inputMileage" name="mileage" value="{{ old('mileage') }}">
                 @error('mileage')
                     <strong class="error" style="color: red; font-size: 12px;">{{ $message }}</strong>
                 @enderror
@@ -129,7 +133,7 @@
                     <option value="11">11</option>
                     <option value="12">12</option>
                 </select>
-                @error('category_id')
+                @error('cylinders')
                     <strong class="cylinders" style="color: red; font-size: 12px;">{{ $message }}</strong>
                 @enderror
             </div>
