@@ -64,8 +64,18 @@
         </div>
         {{-- end carousel --}}
         <div class="main-info-cont mt-2">
+          {{-- POST PRICE --}}
           <div class="left-cont p-2">
-            <h2 class="index-card-price pl-1 mb-3 pt-2">{{ $post->price }} ₾</h2>
+            <h2 id="gel-price" class="index-card-price pl-1 mb-1 pt-2">{{ $price_gel }}</h2>
+            <h2 id="dollar-price" style="display: none" class="index-card-price pl-1 mb-1 pt-2">{{ $price_dollar }}</h2>
+            <div>
+              {{-- number_format("1000000",2) --}}
+              <button id="toggle-btn" class="currBtn mb-2" onclick="changeCurrency()">
+                <span class="curr choosenCurr" id="gelSpan">₾</span> 
+                <span class="curr" id="dollarSpan">$</span>
+              </button>
+            </div>
+            {{-- ENDPOST PRICE --}}
             @if ($post->customs != 0)
               <p class="c-c">Customs-cleared</p>
             @else
@@ -295,4 +305,26 @@
          @endforeach
       </div>
    </div>
+
+  <script>
+    function changeCurrency() {
+    var gelPrice = document.getElementById("gel-price");
+    var dollarPrice = document.getElementById("dollar-price");
+    // var currBtn = document.getElementById("toggle-btn");
+    var gelSpan = document.getElementById("gelSpan");
+    var dollarSpan = document.getElementById("dollarSpan");
+
+    if (dollarPrice.style.display === "none") {
+      dollarPrice.style.display = "block";
+      gelPrice.style.display = "none";
+      dollarSpan.classList.add("choosenCurr");
+      gelSpan.classList.remove("choosenCurr");
+    } else {
+      gelPrice.style.display = "block";
+      dollarPrice.style.display = "none";
+      dollarSpan.classList.remove("choosenCurr");
+      gelSpan.classList.add("choosenCurr");
+    }
+  }
+  </script>
 @endsection
