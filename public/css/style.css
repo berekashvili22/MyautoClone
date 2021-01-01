@@ -247,6 +247,45 @@ body {
 
 /* post show */
 
+.currBtn {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(235, 235, 235);
+    width: 70px;
+    border-radius: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.currBtn:focus {
+    outline: none;
+}
+
+
+.curr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.choosenCurr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+
+
+
 
 .ed-del-p {
     display: flex;
@@ -292,10 +331,11 @@ body {
 
 .left-cont p {
     font-weight: bold;
-    color: orange;
+    color: rgb(196, 130, 7);
     background-color: rgb(216, 216, 216);
     padding-left: 5px;
     border-radius: 5px;
+    margin-bottom: 0px;
 }
 
 .right-cont {
